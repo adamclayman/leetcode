@@ -2,18 +2,26 @@ class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
         vector<vector<int>> answer;
-        vector<int> triplet;
+        if (nums.size() < 3) return answer;
         std::sort(nums.begin(), nums.end()); // Added sort step
-        for (int i = 0; i < nums.size() - 2; i++) {
-            for (int j = i+1; j < nums.size() - 1; j++) {
-                for (int k = j+1; k < nums.size(); k++) {
-                    if (nums[i] + nums[j] + nums[k] == 0) {
-                        triplet.clear();
-                        triplet.push_back(nums[i]);
-                        triplet.push_back(nums[j]);
-                        triplet.push_back(nums[k]);                        
-                        answer.push_back(triplet);
-                    }
+        int nums_size = nums.size();
+        for (int i = 0; i < nums_size - 2; i++) {
+            if (nums[i] > 0) break; // Don't continue past starter variable greater than 0
+            if (i>0 && nums[i] == nums[i-1]) continue; // Prevents repeated combination on starter
+            int left = i+1;
+            int right = nums_size - 1;
+            while (left < right) {
+                int sum = nums[i] + nums[left] + nums[right];
+                if (sum < 0) {
+                    left++;
+                } else if (sum > 0) {
+                    right--;
+                } else {
+                    answer.push_back({nums[i], nums[left], nums[right]});
+                    int last_left = nums[left];
+                    int last_right = nums[right];
+                    while(left < right && nums[left] == last_left) left++;
+                    while(left < right && nums[right] == last_right) right--;
                 }
             }
         }
