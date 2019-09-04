@@ -22,6 +22,7 @@ public:
             }
             prev->next = prev->next->next;
             delete present;
+            present = NULL;
             return head;
         }
     }
