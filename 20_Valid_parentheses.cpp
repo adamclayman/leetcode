@@ -2,29 +2,31 @@ class Solution {
 public:
     bool isValid(string s) {
         stack<char> charstack;
-        for(int i = 0; i < s.size(); i++) {
-            switch(s.at(i)) {
-                case '(': charstack.push(')');
-                    break;
-                case '{': charstack.push('}');
-                    break;
-                case '[': charstack.push(']');
-                    break;
-                case ')':
-                    if(charstack.top() == ')') {
-                        charstack.pop();
-                    } else return false;
-                case '}':
-                    if(charstack.top() == '}') {
-                        charstack.pop();
-                    } else return false;
-                case ']':
-                    if(charstack.top() == ']') {
-                        charstack.pop();
-                    } else return false;
-                        
+        for(char c : s) {
+            if (c == '(') {
+                charstack.push(')');
+            } else if (c == '[') {
+                charstack.push(']');
+            } else if (c == '{') {
+                charstack.push('}');
+            } else if (c == ')' || c == ']' || c == '}') {
+                if (charstack.empty()) {
+                    return false;
+                }
+                else if (c == charstack.top()) {
+                    charstack.pop();
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
             }
         }
-        return true;
+        if (charstack.empty()) {
+            return true;
+        } else {
+            return false;
+        }
+              
     }
 };
