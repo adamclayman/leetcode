@@ -24,20 +24,18 @@ public:
         ListNode * dummy = new ListNode(0);
         dummy->next = head;
         ListNode * prev = dummy;
+        ListNode * new_base = dummy->next;
         for (subunits; subunits > 0; subunits--) {
             walker = prev;
             new_base = prev->next; // D 1 2 3
             for (int outer_counter = k; outer_counter > 0; outer_counter--) {
-                for (counter = outer_counter - 1; counter > 0; counter--) {
+                for (int counter = outer_counter - 1; counter > 0; counter--) {
                     walker = walker->next;
                     new_base = new_base->next;
                 }
                 new_base->next = walker;
             }
-            for (counter = k; counter > 0; counter--) {
-                new_base->next = walker;
-            }
-            for (counter = k; counter > 0; counter--) {
+            for (int counter = k; counter > 0; counter--) {
                 prev = prev->next;
             }
         }
