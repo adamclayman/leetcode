@@ -1,16 +1,12 @@
 class Solution {
 public:
     int removeDuplicates(vector<int>& nums) {
-        if (nums.empty())
-            return 0;
-        int last = nums[0];
-        for(int i = 0; i < nums.size(); i++) {
-            if (nums[i] == last) {
-                nums.erase(nums.begin() + i);
-                i--;
-            } else {
-                last = nums[i];
-            }
+        if (nums.size() <= 1)
+            return nums.size();
+        vector<int>::iterator it;
+        for (it=nums.begin()+1; it != nums.end(); it++) {
+            if((*it) == *(it-1))
+                it = nums.erase(it-1);
         }
         return nums.size();
     }
